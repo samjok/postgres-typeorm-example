@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
-import { getConnection, getRepository } from "typeorm";
+import { getRepository } from "typeorm";
 import { User } from "../models/User";
 import jwt from "jsonwebtoken";
 import "dotenv/config";
@@ -86,6 +86,24 @@ export const removeUserById = async (
   }
 };
 
+export const updateOwnPassword = async (
+  req: Request,
+  res: Response,
+): Promise<Response> => {
+  try {
+    const { id } = req.body.user.id; // this id comes from auth middleware
+    const { newPassword } = req.body;
+    const userRepository = getRepository(User);
+
+    const salt = await bcrypt.genSalt(10);
+    const cryptedPassword = await bcrypt.hash(newPassword, salt);
+
+    await userRepository.update(id, { password: cryptedPassword });
+    return res.status(200).send({ msg: "Password updated" });
+  } catch (err) {
+    return res.status(501).send({ error: "Server error" });
+  }
+};
 
 export const initializeAdmin = async (
   req: Request,

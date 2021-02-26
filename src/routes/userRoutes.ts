@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { checkAuth, initializeAdmin, registerUser } from "../controllers/userControllers";
+import { checkAuth, initializeAdmin, registerUser, removeUserById, updateOwnPassword } from "../controllers/userControllers";
 import { body, validationResult } from "express-validator";
 import { Request, Response, NextFunction } from "express";
 import auth from "../middlewares/authenticationMiddleware";
@@ -20,6 +20,8 @@ const userRoutes = (): Router => {
   }, registerUser);
   router.get("/auth", checkAuth);
   router.post("/init", initializeAdmin);
+  router.patch("/update", auth, updateOwnPassword);
+  router.delete("/:id", auth, admin, removeUserById);
   return router;
 };
 
