@@ -13,32 +13,30 @@ interface IToken {
 
 const secret = String(process.env.JWT_SECRET);
 
-export const checkAuth = (
+export const checkAuth = async (
   req: Request,
   res: Response
-): void => {
-  const token = req.headers.authorization;
+): Promise<Response> => {
   try {
+    const token = req.headers.authorization;
     if (token) {
       const decodedData = jwt.verify(token.split(" ")[1], secret);
       const id = Number((decodedData as IToken).data);
       const userRepository = getRepository(User);
-      const existingUser = userRepository.findOne({ where: { id } });
+      const existingUser = await userRepository.findOne({ where: { id } });
       if (existingUser) {
-        existingUser.then(result => {
-          req.body.user = { id: (result as User).id };
-          res.status(200).send({ msg: "Authenticated" });
-        });
-      } else res.status(401).send({ error: "Unauthorized" });
-    } else res.status(401).send({ error: "Unauthorized" });
+        req.body.user = { id: existingUser.id, role: existingUser.role };
+        return res.status(200).send({ msg: "Authenticated" });
+      } else return res.status(401).send({ error: "Unauthorized" });
+    } else return res.status(401).send({ error: "Unauthorized" });
   } catch (err) {
     if (err.name === "JsonWebTokenError") {
-      res.status(401).send({ error: "Unauthorized" });
+      return res.status(401).send({ error: "Unauthorized" });
     }
     if (err.name === "TokenExpiredError") {
-      res.status(401).send({ error: "Session ended" });
+      return res.status(401).send({ error: "Session ended" });
     }
-    else res.status(500).send({ error: "Server error" });
+    else return res.status(500).send({ error: "Server error" });
   }
 };
 
