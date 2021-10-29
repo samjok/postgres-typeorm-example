@@ -7,7 +7,7 @@ The app uses [TypeORM](https://typeorm.io/#/) for handling database queries.
 
 ## Development
 
-This project MIT licenced and you can use it as a base of your own projects. After cloning the repository you need to install npm packages with command "npm install" (or with yarn: "yarn install").
+This project is MIT licenced and you can use it as a base of your own projects. After cloning the repository you need to install npm packages with command "npm install" (or with yarn: "yarn install").
 
 You need to make .env file which contains necessary environmental variables. Theres is .env-template file which you can use and rename it to ".env". 
 
@@ -25,5 +25,3 @@ You can run the app with nodemon using command "npm run watch". If everything is
 Server is running on port 5000.
 Server is connected to PostgreSQL database.
 ```
-
-
