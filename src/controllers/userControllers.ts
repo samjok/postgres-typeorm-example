@@ -30,13 +30,7 @@ export const checkAuth = async (
       } else return res.status(401).send({ error: "Unauthorized" });
     } else return res.status(401).send({ error: "Unauthorized" });
   } catch (err) {
-    if (err.name === "JsonWebTokenError") {
-      return res.status(401).send({ error: "Unauthorized" });
-    }
-    if (err.name === "TokenExpiredError") {
-      return res.status(401).send({ error: "Session ended" });
-    }
-    else return res.status(500).send({ error: "Server error" });
+    return res.status(401).send({ error: "Unauthorized" });
   }
 };
 

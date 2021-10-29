@@ -30,13 +30,7 @@ const auth = async (
       } else res.status(401).send({ error: "Unauthorized" });
     } else res.status(401).send({ error: "Unauthorized" });
   } catch (err) {
-    if (err.name === "JsonWebTokenError") {
-      res.status(401).send({ error: "Unauthorized" });
-    }
-    if (err.name === "TokenExpiredError") {
-      res.status(401).send({ error: "Session ended" });
-    }
-    else res.status(500).send({ error: "Server error" });
+    res.status(401).send({ error: "Unauthorized" });
   }
 };
 
