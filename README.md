@@ -17,7 +17,7 @@ First five variables on .env file are for [database configuration](https://typeo
 
 JWT_SECRET variable is used as a seed for generating tokens and it is an arbitrary string. 
 
-Last two variables are credentials of an admin user which can be initialized with POST request to path ```http://localhost:5000/api/user/init.```
+Last two variables are credentials of an admin user which can be initialized with POST request to path ```http://localhost:5000/api/user/init```.
 
 You can run the app with nodemon using command "npm run watch". If everything is working you will see this text on your console:
 
