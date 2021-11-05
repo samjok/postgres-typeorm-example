@@ -11,17 +11,21 @@ This project is MIT licenced and you can use it as a base of your own projects. 
 
 You need to make .env file which contains necessary environmental variables. Theres is .env-template file which you can use and rename it to ".env". 
 
-You also need a PotgreSQL database installed on your machine and you need to add database configuration info on .env file.
+You also need a PostgreSQL database installed on your machine and you need to add database configuration info on .env file.
 
 First five variables on .env file are for [database configuration](https://typeorm.io/#/using-ormconfig/using-environment-variables).
 
 JWT_SECRET variable is used as a seed for generating tokens and it is an arbitrary string. 
 
-Last two variables are credentials of an admin user which can be initialized with POST request to path ```http://localhost:5000/api/user/init```.
+Last two variables are credentials of an admin user which can be initialized with POST request to path ```http://localhost:5000/api/user/init``` (for example using [Postman](https://www.postman.com/)).
 
-You can run the app with nodemon using command "npm run watch". If everything is working you will see this text on your console:
+You can run the app with [nodemon](https://nodemon.io/) using command "npm run watch". If everything is working you will see this text on your console:
 
 ```
 Server is running on port 5000.
 Server is connected to PostgreSQL database.
 ```
+
+## Contributions
+
+If you have an idea how to make this project base more useful feel free to make an issue or pull request about it.
